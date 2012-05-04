@@ -1,0 +1,245 @@
+<?php
+/**
+ * @file
+ *
+ * Handles module administration and download link
+ */
+
+
+/**
+ * Implements hook_menu().
+ */
+function download_menu() {
+  $items = array();
+  $items['download/%'] = array(
+    'page callback' => 'download_download',
+    'page arguments' => array(1),
+    'access arguments' => array('download files'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function download_permission() {
+  return array(
+    'download files' => array(
+      'title' => t('Download files'),
+      'description' => t('Allow users to download files'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_info().
+ */
+function download_field_info() {
+  return array(
+    'download_link' => array(
+      'label' => 'Download all files',
+      'description' => t('A download link to get archived files'),
+      'default_widget' => 'download_link_widget',
+      'default_formatter' => 'download_link_formatter',
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_field_is_empty().
+ */
+function download_field_is_empty($item, $field) {
+  return empty($item['download_fields']);
+}
+
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function download_field_formatter_info() {
+  return array(
+    'download_link_formatter' => array(
+      'label' => t('Download link formatter'),
+      'field types' => array('download_link'),
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function download_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+  switch ($display['type']) {
+    case 'download_link_formatter':
+      foreach ($items as $delta => $item) {
+        if ($item['download_fields']) {
+          $fields = explode(';', $item['download_fields']);
+
+          $valid_file_found = FALSE;
+          foreach ($fields as $fieldname) {
+            if (isset($entity->{$fieldname})) {
+
+              foreach ($entity->{$fieldname} as $field_array) {
+                foreach ($field_array as $file) {
+                  if (file_valid_uri($file['uri'])) {
+                    $valid_file_found = TRUE;
+                    break;
+                  }
+                }
+              }
+
+            }
+          }
+          if ($valid_file_found) {
+            $element[$delta] = array(
+              '#theme' => 'link',
+              '#text' => $item['download_label'],
+              '#path' => 'download/' . $entity->nid . '-' . $delta . '.zip',
+              '#options' => array('attributes' => array(), 'html' => FALSE),
+            );
+          }
+        }
+      }
+      break;
+  }
+  return $element;
+}
+
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function download_field_widget_info() {
+  return array(
+    'download_link_widget' => array(
+      'label' => t('Field selector'),
+      'field types' => array('download_link'),
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_field_widget_form().
+ */
+function download_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  $value = isset($items[$delta]['download_fields']) ? $items[$delta]['download_fields'] : '';
+  $default_label = isset($items[$delta]['download_label']) ? $items[$delta]['download_label'] : '';
+  $default_value = is_array($value) ? $value : explode(';', $value);
+
+  $widget = $element;
+  $widget['#delta'] = $delta;
+
+  switch ($instance['widget']['type']) {
+
+    case 'download_link_widget':
+
+      $options = array();
+      $fields = field_info_fields();
+      $allowed_types = array('file', 'image');
+      foreach ($fields as $field_name => $field) {
+        $used_bundles = array();
+        foreach ($field['bundles'] as $bundles) {
+          $used_bundles = array_merge($used_bundles, $bundles);
+        }
+        if (in_array($instance['bundle'], $used_bundles)) {
+          if (in_array($field['type'], $allowed_types)) {
+            $options[$field['field_name']] = $field['field_name'];
+          }
+        }
+      }
+
+      $widget += array(
+        '#type' => 'checkboxes',
+        '#title' => 'Select fields to compress.',
+        '#options' => $options,
+        '#default_value' => $default_value,
+      );
+      $label = array(
+        '#type' => 'textfield',
+        '#title' => 'Text to display',
+        '#delta' => $delta,
+        '#default_value' => $default_label,
+      );
+      break;
+
+  }
+
+  $element['download_fields'] = $widget;
+  if (isset($label)) {
+    $element['download_label'] = $label;
+  }
+  return $element;
+}
+
+function download_field_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  foreach ($items as $key => $item) {
+    if (isset($item['download_fields'])) {
+      $fields = '';
+      foreach ($item['download_fields'] as $fieldname => $value) {
+        if ($value != '0') {
+          $fields .= $fieldname . ';';
+        }
+      }
+      if ($fields == '') {
+        unset($items[$key]);
+      }
+      else {
+        $items[$key]['download_fields'] = $fields;
+      }
+    }
+  }
+}
+
+
+/**
+ * Implements hook_field_widget_error().
+ */
+function download_field_widget_error($element, $error, $form, &$form_state) {
+  switch ($error['error']) {
+    case 'download_link_invalid':
+      form_error($element, $error['message']);
+      break;
+  }
+}
+
+
+
+function download_download($field_info) {
+
+  $prefix = array_shift(explode('.', $field_info));
+  list($nid, $delta) = explode('-', $prefix);
+
+  $lib_path = libraries_get_path('pclzip');
+  if (!is_dir($lib_path)) {
+    drupal_goto('node/' . $nid);
+  }
+
+  include $lib_path . '/pclzip.lib.php';
+  $archive = new PclZip(file_directory_temp() . '/' . $nid . '-' . $delta . '.zip');
+
+  $files = array();
+  $node = node_load($nid);
+
+  $fields = $node->field_download[LANGUAGE_NONE][$delta]['download_fields'];
+  $fieldnames = array_filter(explode(';', $fields));
+
+  foreach ($fieldnames as $fieldname) {
+    if (isset($node->{$fieldname})) {
+      foreach ($node->{$fieldname} as $field_array) {
+        foreach ($field_array as $field) {
+          $files[] = drupal_realpath($field['uri']);
+        }
+      }
+    }
+  }
+  $archive->add($files, PCLZIP_OPT_REMOVE_ALL_PATH);
+  header("Content-Type: application/force-download");
+  header('Content-Description: File Transfer');
+  readfile(file_directory_temp() . '/' . $nid . '-' . $delta . '.zip');
+  exit();
+}

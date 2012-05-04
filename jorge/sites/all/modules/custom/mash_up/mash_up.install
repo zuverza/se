@@ -1,0 +1,146 @@
+<?php
+
+
+
+
+
+/**
+ * Implementation of hook_schema().
+ */
+
+function mash_up_schema() {
+ $schema['mash_up'] = array(
+    'description' => 'The primary identifier for a mash-up.',
+    'fields' => array(
+   'mid' => array(
+        'description' => 'The primary identifier for a mash-up.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+   ),
+
+   			'name' => array(
+				'description' => 'The machine name for the mash-up.',
+        		'type' => 'varchar',
+        		'length' => 128,
+      		),
+
+      'nid' => array(
+        'description' => 'Foreign Key, references node id ',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+   ),
+      'uid' => array(
+        'description' => 'Foreign Key, references user id uid',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '0',
+      ),
+   ),
+    'primary key' => array('mid'),
+        'indexes' => array(
+      'nid' => array('nid'),
+      'uid' => array('uid'),
+      
+      ),
+  );
+
+return $schema;
+
+}
+
+/**
+ * Implementation of hook_install().
+ */
+function mash_up_install() {
+  //drupal_install_schema('mash_up');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function mash_up_uninstall() {
+ drupal_uninstall_schema('mash_up');
+}
+
+
+
+
+
+
+
+
+
+/**
+ * Implementation of hook_schema().
+ */
+
+ /*
+function mash_up_schema(){
+	
+
+	$schema['mash_up'] = array(
+
+		'description' => 'Base table for Mash-Ups, storing global information for each Mash-Up',
+
+		'fields' =>  array(
+			'mid' => array(
+				'description' => 'The primary identifier for a mash-up.',
+        		'type' => 'serial',
+        		'unsigned' => TRUE,
+        		'not null' => TRUE
+				),
+
+			'name' => array(
+				'description' => 'The machine name for the mash-up.',
+        		'type' => 'varchar',
+        		'length' => 128,
+      		),
+
+      		'uid' => array(
+      			'description' => 'Foreign Key, references user id uid',
+      			'type' =>'int',
+      			'size' => 'big'
+	      		),
+
+	      	'nid' => array(
+	      		'description' => 'Foreign Key, references node id nid',
+	      		'type' =>'int',
+      			'size' => 'big'
+
+		      	)
+
+
+
+
+		),
+			 'primary key' => array('mid')
+
+
+		);
+
+
+}
+
+*/
+
+/**
+ * Implementation of hook_install().
+ */
+ /*
+function mash_up_install() {
+  drupal_install_schema('mash_up');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+ /*
+function mash_up_uninstall() {
+ drupal_uninstall_schema('mash_up');
+}
+
+*/

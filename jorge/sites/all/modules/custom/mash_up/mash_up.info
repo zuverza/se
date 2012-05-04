@@ -1,0 +1,3 @@
+name = Mash-Up
+description = A block module that allow users to create mash-ups from the articles listed in the webpage.
+core = 7.x

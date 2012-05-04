@@ -1,0 +1,16 @@
+; $Id: insertFrame.info,v 1.1.4.4.2.1.2.2 2011/01/26 20:34:32 marcelbichon Exp $
+name = insertFrame
+description = A filter that includes iFrame in a node with auto-height feature
+package = "Input filters"
+dependencies[] = filter
+version = "7.x-1.0"
+core=7.x
+files[] = insertFrame.module
+datestamp = "1200009981"
+
+; Information added by drupal.org packaging script on January 1, 1970 - 00:00
+version = "7.x-2.1"
+core = "7.x"
+project = "insertFrame"
+datestamp = "1296074519"
+

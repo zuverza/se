@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="tienda" method="upgrade">
+	<name>Tienda Plugin for sending products to Google Products</name>
+	<version>0.8.2</version>
+	<creationDate>October 2011</creationDate>
+	<author>Dioscouri</author>
+	<authorEmail>info@dioscouri.com</authorEmail>
+	<authorUrl>http://www.dioscouri.com</authorUrl>
+	<copyright>2011 Dioscouri.com</copyright>
+	<license>GNU General Public License v2</license>
+	<description>This plugin sends Tienda products to Google Products database (Google Base / Froogle)</description>
+	
+	<files>
+		<filename plugin="googleproducts">googleproducts.php</filename>
+        <folder>googleproducts</folder>
+	</files>
+    
+    <languages folder="languages">
+        <language tag="en-GB">en-GB.plg_tienda_googleproducts.ini</language>
+    </languages>
+    
+	<params>
+		<param type="text" name="username" label="Google Account Username" description="The Google Products Account ID" default="" />
+		<param type="text" name="password" label="Google Account Password" description="The Google Products Password" default="" />
+		<param type="text" name="account_id" label="Account ID" description="The Google Products Account ID" default="" />
+		<param name="taxonomy" type="radio" default="tienda" label="Taxonomy (category) System" description="What Taxonomy (category) system should this plugin use when sending products to google?">
+		  <option value="tienda">Tienda</option>
+		  <option value="google">Google</option>
+		  <option value="both">Both</option>
+		</param>
+		<param name="auto_sync" type="radio" default="1" label="Enalbe Automatic Sending?" description="Enable Automatic inserting / updating / deleting products on google products upon saving in Tienda?">
+		  <option value="0">No</option>
+		  <option value="1">Yes</option>
+		</param>
+	</params>
+			
+</install>

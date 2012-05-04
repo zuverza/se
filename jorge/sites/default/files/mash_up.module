@@ -1,0 +1,247 @@
+<?php 
+
+/**
+* @file
+* A block module that displays recent blog and forum posts.
+*/
+
+
+//The files are in table -> file managed in uri && fliename field in /sitesult/files
+
+
+/**
+* Implements hook_help.
+*
+* Displays help and module information.
+*
+* @param path
+*   Which path of the site we're using to display help
+* @param arg
+*   Array that holds the current path as returned from arg() function
+*/
+function mash_up_help($path, $arg){
+
+  switch ($path) {
+    case "admin/help#mash_up":
+      return '<p>'.  t("Displays links to nodes created on this date $path") .'</p>';
+      break;
+  }
+	
+
+
+}
+
+/**
+* Implements hook_block_info().
+*/
+function mash_up_block_info() {
+  $blocks['mash_up'] = array(
+    'info' => t('Mash Up'), //The name that will appear in the block list.
+    'cache' => DRUPAL_CACHE_PER_ROLE, //Default USER
+  );
+  return $blocks;
+}
+
+/**
+* Custom content function.
+*
+* Set beginning and end dates, retrieve posts from database
+* saved in that time period.
+*
+* @return
+*   A result set of the targeted posts.
+*/
+function mash_up_contents(){
+  //Get today's date.
+  //$today = getdate();
+  //Calculate the date a week ago.
+  //$start_time = mktime(0, 0, 0,$today['mon'],($today['mday'] - 7), $today['year']);
+  //Get all posts from one week ago to the present.
+  //$end_time = time();
+  //Use Database API to retrieve current posts.
+  /*
+  $query = db_select('mash_up', 'n')
+    ->fields('n', array('nid', 'title', 'created'))
+    ->condition('status', 1) //Published.
+    ->condition('created', array($start_time, $end_time), 'BETWEEN')
+    ->orderBy('created', 'DESC') //Most recent first.
+    ->execute();
+
+*/
+
+
+
+  global $user;
+/*
+  $query = db_select('mash_up', 'n')
+    ->fields('n', array('mid', 'name', 'nid', 'uid'))
+    ->condition('uid', $user->uid) //Corresponding user
+    ->execute();
+*/
+   $query = db_query("SELECT m. * , n . * FROM dr_mash_up m, dr_node n WHERE m.uid = $user->uid AND m.nid = n.nid ");//SELECT m.*, n.* FROM mash_up m, node n WHERE m.uid = '1' AND m.nid = 'n.nid';");
+
+
+  return $query;
+  
+   }
+
+
+
+/**
+* Implements hook_block_view().
+*
+* Prepares the contents of the block.
+*/
+function mash_up_block_view($delta = '') {
+
+//if (!$account) {
+  //global $user; //get the user
+  //$account = $user;
+//}
+
+
+
+  switch($delta){
+    case 'mash_up':
+      $block['subject'] = t('mash-ups');
+      if(user_access('access content')){
+        //Use our custom function to retrieve data.
+        $result = mash_up_contents();
+        //Array to contain items for the block to render.
+        $items = array();
+        //Iterate over the resultset and format as links.
+        foreach ($result as $node){
+          $items[] = array(
+            'data' => l($node->title , 'node/' . $node->nid),
+          );
+        }
+     
+        if (empty($items)) { //No content in the last week.
+
+          
+          $block['content'] = t('No mash ups in your list.'); 
+        }
+        else {
+
+          global $user;
+
+          $items[] = array(
+            'data' => l('Make Mashup!' , url(get_path() . "add_mash_up.php?uid=$user->uid&nid=$node->nid&action=make_mash_up")),
+          );
+
+
+          //Pass data through theme function.
+          $block['content'] = theme('item_list', array(
+            'items' => $items));
+
+          
+        }
+      }
+  }
+  return $block;
+}
+
+
+function get_path(){
+  
+
+  //return "http://haciendarealcelaya.com/jorge/sites/all/modules/custom/mash_up/";
+
+  return "http://haciendarealcelaya.com/jorge/sites/default/files/";
+}
+
+
+  
+/**
+ * Implements hook_node_view().
+ *change! -> change href in this function
+ */
+function mash_up_node_view($node, $view_mode) {
+
+  global $user;
+
+  $mashup = get_users_mashup($node->nid, $user->uid); // See if the node is in the mashup list.
+
+  $class = 'mash-up class';
+
+//If the node is in the mashup list, then print Remove Mash-up
+if($mashup){
+   $links[$class] = array(
+          'title' => 'Remove Mash-Up',
+          'href' => url(get_path()."add_mash_up.php?uid=$user->uid&nid=$node->nid&action=remove"),
+          'attributes' => array('class' => array($class . '' . $user->uid . ' toggle-add'), 'id' => 'caca' .$node->nid),
+          
+          'purl' => array('disabled' => TRUE),
+        );
+}
+//If the node is not in the mashup list, then print add Mash-up.
+else{        
+   $links[$class] = array(
+          'title' => 'Add Mash-Up',
+          'href' => url(get_path().  "add_mash_up.php?uid=$user->uid&nid=$node->nid&action=add"),
+          'attributes' => array('class' => array($class . '' . $user->uid . ' toggle-add'), 'onclick' => "http.open('get', 'localhost/drupal7/sites/all/modules/custom/mash_up/add_mash_up.php);" ),
+          
+          'purl' => array('disabled' => TRUE),
+        );
+}
+  
+  //$links = mash_up_node_links($node);
+
+
+  if (!empty($links)) {
+    $node->content['links']['mash_up'] = array(
+      '#links' => $links,
+      '#theme' => 'links__mash_up',
+    );
+  }
+}
+
+
+/**
+ * Returns an array of the signed-in user mashups.
+ */
+function get_users_mashup($nid, $uid){
+
+$result = db_select('mash_up', 'n')
+    ->fields('n', array('mid', 'name', 'nid', 'uid'))
+    ->condition('uid', $uid) //Corresponding user.
+    ->condition('nid', $nid)
+    ->execute()
+    ->fetchAssoc();
+
+    return $result;
+}
+
+
+
+
+
+
+/**
+ * Implements hook_insert
+ */
+function mash_up_insert($node) {
+
+  global $user;
+
+  db_insert('mash_up')
+    ->fields(array(
+    'nid' => $node->nid, 
+    'uid' => $user->uid,
+  ))
+    ->execute();
+}
+
+
+/**
+  *Insert mash-up to the db.
+  *
+ */ 
+function mash_up_save(){
+  
+
+
+
+
+}
+

@@ -1,0 +1,2 @@
+[23-Feb-2012 14:09:33] PHP Fatal error:  Call to undefined method JXMLElement::getElementByPath() in /home2/pajarocl/public_html/haciendarealcelaya/administrator/components/com_tienda/install/install.php on line 34
+[23-Feb-2012 14:09:57] PHP Fatal error:  Call to undefined method JXMLElement::getElementByPath() in /home2/pajarocl/public_html/haciendarealcelaya/administrator/components/com_tienda/install/install.php on line 34

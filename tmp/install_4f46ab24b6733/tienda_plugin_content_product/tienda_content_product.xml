@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="content" method="upgrade">
+	<name>Tienda Product Content Plugin</name>
+	<version>0.8.2</version>
+	<creationDate>October 2011</creationDate>
+	<author>Dioscouri</author>
+	<authorEmail>info@dioscouri.com</authorEmail>
+	<authorUrl>http://www.dioscouri.com</authorUrl>
+	<copyright>2011 Dioscouri.com</copyright>
+	<license>GNU General Public License v2</license>
+	<description>Shows a product in the content. 
+	Usage: {tiendaproduct id=1 attribute_1=2 layout=view quantity_restriction=0 show_price=1 show_description=1 show_name=1 show_sku=1 show_model=1 show_buy=1 show_image=1 show_price=1 show_children=1 show_files=1 show_relations=1 show_requirements=1}
+	</description>
+	
+	<files>
+		<filename plugin="tienda_content_product">tienda_content_product.php</filename>
+        <folder>tienda_content_product</folder>
+	</files>
+
+    <languages folder="languages">
+        <language tag="en-GB">en-GB.plg_content_tienda_content_product.ini</language>
+    </languages>
+
+	<params>
+		<param name="quantity_restriction" type="radio" default="0" label="Quantity Restriction" description="Restrict quantity to 1">
+		  <option value="0">No</option>
+		  <option value="1">Yes</option>
+		</param>
+		<param name="show_description" type="radio" default="1" label="Show Product Description">
+		  <option value="0">No</option>
+		  <option value="1">Yes</option>
+		</param>
+		<param name="show_name" type="radio" default="1" label="Show Product Name">
+		  <option value="0">No</option>
+		  <option value="1">Yes</option>
+		</param>
+		<param name="show_model" type="radio" default="1" label="Show Product Model">
+		  <option value="0">No</option>
+		  <option value="1">Yes</option>
+		</param>
+		<param name="show_sku" type="radio" default="1" label="Show Product SKU">
+		  <option value="0">No</option>
+		  <option value="1">Yes</option>
+		</param>
+		<param name="show_image" type="radio" default="1" label="Show Product Image">
+		  <option value="0">No</option>
+		  <option value="1">Yes</option>
+		</param>
+		<param name="show_price" type="radio" default="1" label="Show Product Price">
+		  <option value="0">No</option>
+		  <option value="1">Yes</option>
+		</param>
+		<param name="show_buy" type="radio" default="1" label="Show Product Buy Form">
+		  <option value="0">No</option>
+		  <option value="1">Yes</option>
+		</param>
+		<param name="show_children" type="radio" default="1" label="Show Product Children">
+		  <option value="0">No</option>
+		  <option value="1">Yes</option>
+		</param>
+		<param name="show_files" type="radio" default="1" label="Show Product Files">
+		  <option value="0">No</option>
+		  <option value="1">Yes</option>
+		</param>
+		<param name="show_relations" type="radio" default="1" label="Show Product Relations">
+		  <option value="0">No</option>
+		  <option value="1">Yes</option>
+		</param>
+		<param name="show_requirements" type="radio" default="1" label="Show Product Requirement">
+		  <option value="0">No</option>
+		  <option value="1">Yes</option>
+		</param>
+		<param name="layout" type="list" default="view" label="Layout" description="Layout for the product view">
+		  <option value="view">Complete View</option>
+		  <option value="product_children">Children Products</option>
+		  <option value="product_files">Product Files</option>
+		  <option value="product_relations">Product Relations</option>
+		  <option value="product_requirements">Product Requirements</option>
+		  <option value="product_buy">Product Buy</option>
+		</param>
+	</params>
+			
+</install>

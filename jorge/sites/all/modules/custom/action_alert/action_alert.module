@@ -1,0 +1,12 @@
+<?php
+
+/**
+* Implements hook_block_info().
+*/
+function action_alert_block_info() {
+  $blocks['action_alert'] = array(
+    'info' => t('action_alert posts'), //The name that will appear in the block list.
+    'cache' => DRUPAL_CACHE_PER_ROLE, //Default USER
+  );
+  return $blocks;
+}

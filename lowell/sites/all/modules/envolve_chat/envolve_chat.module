@@ -1,0 +1,229 @@
+<?php
+/**
+ * @file
+ * Runtime and administrative functions for the Envolve Chat module.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function envolve_chat_menu() {
+  $items = array();
+
+  // Menu item in the Web Services section of the Configuration Menu.
+  $items['admin/config/services/envolve_chat'] = array(
+    'title' => 'Envolve Chat Settings',
+    'description' => 'Setup your Envolve Online Chat Module.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('envolve_chat_admin'),
+    'access arguments' => array('access administration pages'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_admin().
+ *
+ * Allows storing of the API key and whether to use SSL.
+ */
+function envolve_chat_admin() {
+  $form = array();
+
+  // Text field for adding or editing the Envolve API key.
+  $form['envolve_chat_api_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Envolve API Key'),
+    '#default_value' => variable_get('envolve_chat_api_key', ''),
+    '#size' => 50,
+    '#maxlength' => 50,
+    '#description' => t("Get your API key by registering at !link.",
+        array('!link' => l(t("Envolve's website"), 'http://www.envolve.com/landingpages/drupal-chat-module.html'))),
+    '#required' => TRUE,
+  );
+
+  // Checkbox for enabling SSL.
+  $form['envolve_chat_enable_ssl'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable SSL'),
+    '#default_value' => variable_get('envolve_chat_enable_ssl', FALSE),
+    '#description' => t('This is an Enterprise-only Envolve feature. !link.',
+        array('!link' => l(t('More info'), 'http://www.envolve.com/pricing-enterprise.html'))),
+  );
+
+  return system_settings_form($form);
+}
+
+/**
+ * Implements hook_permission().
+ *
+ * Permissions for who sees the Envolve chat bar, and who can administer the
+ * chats.
+ */
+function envolve_chat_permission() {
+  return array(
+    'chat with envolve' => array(
+      'title' => t('Chat with Envolve'),
+      'description' => t('Determine who can chat using Envolve.'),
+    ),
+    'administer envolve' => array(
+      'title' => t('Administer Envolve'),
+      'description' => t('Set which user roles are administrators in Envolve.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_page_alter().
+ *
+ * Adds the Envolve Chat bar to the page footer.
+ */
+function envolve_chat_page_alter(&$page) {
+  global $user;
+
+  $display_chat = user_access('chat with envolve');
+
+  $markup = "";
+
+  if ($display_chat) {
+    // Load functions that interface with the API.
+    module_load_include('inc', 'envolve_chat');
+
+    // Retrieve the module settings.
+    $envolve_api_key = variable_get('envolve_chat_api_key', '');
+    $use_ssl         = variable_get('envolve_chat_enable_ssl', FALSE);
+
+    // Checks if the user is logged in.
+    if ($user->uid) {
+      $is_admin  = user_access('administer envolve');
+      $user_load = user_load($user->uid);
+
+      if ($user_load->picture) {
+        $picture = file_create_url($user_load->picture->uri);
+      }
+      else {
+        $picture = NULL;
+      }
+
+      // Generates the markup for a registerred user.
+      $markup = _envolve_chat_get_html_for_reg_user($envolve_api_key, $user->name, NULL, $picture, $is_admin, $use_ssl);
+    }
+    else {
+      // Generates the markup for an anonymous user.
+      $markup = _envolve_chat_get_code_for_anon_user($envolve_api_key, $use_ssl);
+    }
+
+    // Adds the markup to the footer of the page.
+    $page['page_bottom']['devel'] = array(
+      '#type' => 'markup',
+      '#markup' => $markup,
+    );
+  }
+}
+
+/**
+ * Implements hook_help().
+ *
+ * @return
+ *   A string containing HTML formatted text from the plain text files:
+ *   README.txt and INSTALL.txt
+ */
+function envolve_chat_help($path, $arg) {
+  if ($path == 'admin/help#envolve_chat') {
+    $help_text = <<<HELP_TEXT
+<h3>About</h3>
+<p>
+  The Envolve module adds a chat toolbar, that looks like Facebook's chat, to
+  your Drupal site. Envolve allows your visitors to have group and one-on-one
+  conversations with great features like drag-and-drop invitations and real-time
+  translation into over 60 languages. For more information, see
+  <a href="http://www.envolve.com/">Envolve's website</a>.
+</p>
+
+<h3>Uses</h3>
+<ul>
+  <li>Envolve is used to engaged and retain your members.</li>
+  <li>
+    Use the Envolve backend to setup 'sticky' chats and to specify who can
+    create new chats.
+  </li>
+</ul>
+
+<h3>FAQ</h3>
+<ul>
+  <li>Envolve has both free and paid versions.
+    <a href="http://www.envolve.com/sign-up-and-price">
+      See our pricing page for differences
+    </a>.
+  </li>
+  <li>Read our full FAQ at
+    <a href="http://www.envolve.com/faq.html">
+      http://www.envolve.com/faq.html
+    </a>.
+  </li>
+  <li>
+    If you have any questions please contact
+    <a href="mailto:support@envolve.com">support@envolve.com</a>.
+  </li>
+</ul>
+
+<h3>Basic Installation</h3>
+<ol>
+  <li>Upload the Envolve module to your server.</li>
+  <li>
+    Go to the <a href="/admin/modules">Modules</a> menu and enable Envolve
+    Chat using the enable checkbox (it will probably be near the bottom of the
+    list). Then click the 'Save configuration' button.
+  </li>
+  <li>
+  	Click on the <a href="/admin/config/services/envolve_chat">Configure</a>
+  	link that appears once it is enabled.
+  </li>
+  <li>
+    Insert the API Key you received when you registered for Envolve (see
+    <a href="http://envolve.com">Envolve's website</a> to get an account and an
+    API key), then save the new settings.
+  </li>
+  <li>
+    Refresh the page. You are now able to start chatting with Envolve!
+  </li>
+</ol>
+
+<h3>Advanced Options</h3>
+<p>
+  These can be found at
+  <a href="/admin/config/services/envolve_chat">
+    Administer > Site configuration > Web Services > Envolve Chat Settings
+  </a>
+</p>
+<ol>
+  <li>
+    Administration - By default all visitors to your site are able to chat and
+    site administrators are able to moderate Envolve chats. These settings can
+    be changed using the permissions settings. Permissions can either be granted
+    to existing user roles or a user can become an 'Envolve Admin', which is a
+    user roles can be created solely for chat administration.
+  </li>
+  <li>
+    SSL - There is the option to enable SSL (secure chatting) for Envolve
+    enterprise subscribers.
+  </li>
+</ol>
+
+<h3>Notes</h3>
+<ul>
+  <li>
+    The user's name and avatar (if set) in envolve are taken from Drupal
+    automatically.
+  </li>
+  <li>
+    Please visit <a href="http://www.envolve.com">Envolve's website</a> for more
+    details.
+  </li>
+</ul>
+HELP_TEXT;
+    return t($help_text);
+  }
+}
+

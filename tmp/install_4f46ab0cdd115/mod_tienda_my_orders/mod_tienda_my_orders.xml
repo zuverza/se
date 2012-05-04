@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="module" version="1.5.0" position="left" method="upgrade">
+    <name>My Orders</name>
+    <author>Dioscouri</author>
+    <authorEmail>info@dioscouri.com</authorEmail>
+    <authorUrl>http://www.dioscouri.com</authorUrl>
+    <version>0.8.2</version>
+    <creationDate>October 2011</creationDate>
+    <copyright>2011 Dioscouri.com</copyright>
+    <license>GNU General Public License</license>
+    <description>Displays recent orders made by a user</description>
+    
+    <files>
+        <filename module="mod_tienda_my_orders">mod_tienda_my_orders.php</filename>
+        <filename>helper.php</filename>
+        <filename>index.html</filename>
+        <folder>tmpl</folder>
+    </files>
+    
+    <languages>
+        <language tag="en-GB">languages/en-GB.mod_tienda_my_orders.ini</language>
+    </languages>
+    
+    <params>
+        <param type="spacer" />
+        <param name="display_id" type="list" default="1" label="Show Id" description="Show ID of the Order ">
+            <option value="1">ENABLED</option>
+            <option value="0">DISABLED</option>
+        </param>
+        <param name="display_date" type="list" default="1" label="Show Date" description="Show Date Desc">
+            <option value="1">ENABLED</option>
+            <option value="0">DISABLED</option>
+        </param>
+        <param name="display_image_link" type="list" default="1" label="Link Image" description="Link Image Desc">
+            <option value="1">ENABLED</option>
+            <option value="0">DISABLED</option>
+        </param>
+       
+        <param name="display_amount" type="list" default="1" label="Show Amount" description="Show Amount Desc">
+            <option value="1">ENABLED</option>
+            <option value="0">DISABLED</option>
+        </param>
+       
+        <param name="display_state" type="list" default="1" label="Show State" description="Show State">
+            <option value="1">ENABLED</option>
+            <option value="0">DISABLED</option>
+        </param>
+
+        <param name="max_number" type="text" default="5" label="Max Number" description="MAX_NUMBER" />
+        <param type="spacer" />
+        <param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
+        <param type="spacer" />
+        <param name="null_text" type="text" size="50" default="No Orders Found" label="Null Text" description="Null Text Desc"></param>
+    </params>
+</install>

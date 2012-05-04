@@ -1,0 +1,24 @@
+<?php
+/**
+ * @file
+ * Install and uninstall functions for the Envolve Chat module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function envolve_chat_install() {
+  user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, array('chat with envolve'));
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('chat with envolve'));
+  drupal_set_message(st("Envolve Chat settings are available under !link",
+    array('!link' => l(st('Administer > Site configuration > Web Services > Envolve Chat Settings'), 'admin/config/services/envolve_chat' ))
+  ), 'status');
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function envolve_chat_uninstall() {
+  variable_del('envolve_chat_api_key');
+  variable_del('envolve_chat_enable_ssl');
+}

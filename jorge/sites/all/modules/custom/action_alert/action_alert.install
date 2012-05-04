@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * Implementation of hook_schema().
+ */
+
+function action_alert_schema() {
+ $schema['action_alert'] = array(
+    'description' => 'Action Alert table.',
+    'fields' => array(
+   'aid' => array(
+        'description' => 'The serial ID.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+   ),
+      'nid' => array(
+        'description' => 'The primary identifier of the node.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+   ),
+      'uuid' => array(
+        'description' => 'The session id of the user if the UID is not present.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '0',
+      ),
+   ),
+    'primary key' => array('aid'),
+  );
+
+return $schema;
+
+}
+
+/**
+ * Implementation of hook_install().
+ */
+function action_alert_install() {
+  drupal_install_schema('action_alert');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function action_alert_uninstall() {
+ drupal_uninstall_schema('action_alert');
+}

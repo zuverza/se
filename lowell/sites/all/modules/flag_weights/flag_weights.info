@@ -1,0 +1,13 @@
+name = "Flag Weights"
+description = "Add flag-weights to the Flag module."
+package = Flags
+core = 7.x
+dependencies[] = flag
+files[] = views_handler_sort_flag_weights.inc
+
+; Information added by drupal.org packaging script on 2011-12-06
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "flag_weights"
+datestamp = "1323173353"
+

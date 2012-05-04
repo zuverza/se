@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="tienda" method="upgrade">
+	<name>Shipping via UPS</name>
+	<version>0.8.2</version>
+	<creationDate>October 2011</creationDate>
+	<author>Dioscouri</author>
+	<authorEmail>info@dioscouri.com</authorEmail>
+	<authorUrl>http://www.dioscouri.com</authorUrl>
+	<copyright>2011 Dioscouri.com</copyright>
+	<license>GNU General Public License v2</license>
+	<description>This plugin is for Ups</description>
+	
+	<files>
+		<filename plugin="shipping_ups">shipping_ups.php</filename>
+		<folder>shipping_ups</folder>	
+	</files>
+
+	<languages folder="languages">
+		<language tag="en-GB">en-GB.plg_tienda_shipping_ups.ini</language>
+	</languages>
+
+	<params addpath="/administrator/components/com_tienda/elements">
+		<param name="key" type="text" size="50" default="" label="API Key" description="API Key Desc"/>
+		<param name="password" type="text" size="50" default="" label="API Password" description="API Password Desc"/>
+		<param name="account" type="text" size="50" default="" label="API Username" description="API Username Desc"/>
+		<param name="shipper_number" type="text" size="50" default="" label="API Shipper Number" description="API Shipper Number Desc"/>
+        <param name="services" type="multilist" multiple="multiple" default="11" label="Services" description="Services Desc">
+			<option value="01">UPS Next Day Air</option>
+			<option value="02">UPS Second Day Air</option>
+			<option value="03">UPS Ground</option>
+			<option value="07">UPS Worldwide Express</option>
+			<option value="08">UPS Worldwide Expedited</option>
+			<option value="11">UPS Standard</option>
+			<option value="12">UPS Three-Day Select</option>
+			<option value="13">UPS Next Day Air Saver</option>
+			<option value="14">UPS Next Day Air Early AM</option>
+			<option value="54">UPS Worldwide Express Plus</option>
+			<option value="59">UPS Second Day Air AM</option>
+			<option value="65">UPS Saver</option>
+		</param>
+		<param name="packaging" type="list" default="02" label="Packaging Type" description="Packaging Type Desc">
+			<option value="00">Unknown</option>
+			<option value="01">Ups Letter</option>
+			<option value="02">Package/customer supplied</option>
+			<option value="03">UPS Tube</option>
+			<option value="04">UPS Pak</option>
+			<option value="21">Express Box</option>
+			<option value="24">25KG Box</option>
+			<option value="25">10KG Box</option>
+			<option value="30">Pallet</option>
+			<option value="2a">Small Express Box</option>
+			<option value="2b">Medium Express Box</option>
+			<option value="2c">Large Express Box</option>
+		</param>
+		<param name="weight_unit" type="list" default="KG" label="Weight Unit" description="Weight Unit Desc">
+			<option value="KGS">KGS</option>
+			<option value="LBS">LBS</option>
+		</param>
+		<param name="dimension_unit" type="list" default="CM" label="Dimension Unit" description="Dimension Unit Desc">
+			<option value="CM">CM</option>
+			<option value="IN">IN</option>
+		</param>
+		<param name="pickup_type" type="list" default="01" label="Pickup Type" description="Pickup Type Desc">
+			<option value="01">Daily Pickup</option>
+			<option value="03">Customer Counter</option>
+			<option value="06">One Time Pickup</option>
+			<option value="07">On Call Air</option>
+			<option value="11">Suggested Retail Rates</option>
+			<option value="19">Letter Center</option>
+			<option value="20">Air Service Center</option>
+		</param>
+		<param name="customer_classification" type="list" default="" label="Customer Classification" description="Customer Classification Desc">
+			<option value="">-- Default --</option>
+			<option value="01">Wholesale</option>
+			<option value="03">Occasional</option>
+			<option value="04">Retail</option>
+		</param>
+		<param name="declare_value" type="radio" default="1" label="Declare Value" description="Declare Value Desc">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</param>
+		<param name="currency_code" type="text" default="USD" label="Currency Code" description="Currency Code Desc" />
+		<param name="charge_tax" type="list" default="0" label="Charge Tax" description="Enable to charge shipping tax.">
+			<option value="0">No</option>
+            <option value="1">Yes</option>
+		</param>
+		<param name="taxclass" type="tiendataxclass" size="50" default="" label="Tax Class" description="Specify the tax class to charge tax on shipping."/>
+	</params>
+</install>

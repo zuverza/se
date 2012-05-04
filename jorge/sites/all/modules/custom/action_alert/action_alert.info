@@ -1,0 +1,3 @@
+name = action alert
+description = A block module that lists links to recent posts Example!.
+core = 7.x

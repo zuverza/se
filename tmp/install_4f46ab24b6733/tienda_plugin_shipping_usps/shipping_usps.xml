@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="tienda" method="upgrade">
+	<name>Shipping via USPS</name>
+	<version>0.8.2</version>
+	<creationDate>October 2011</creationDate>
+	<author>Dioscouri</author>
+	<authorEmail>info@dioscouri.com</authorEmail>
+	<authorUrl>http://www.dioscouri.com</authorUrl>
+	<copyright>2011 Dioscouri.com</copyright>
+	<license>GNU General Public License v2</license>
+	<description>This plugin is for USPS</description>
+	
+	<files>
+		<filename plugin="shipping_usps">shipping_usps.php</filename>
+		<folder>shipping_usps</folder>	
+	</files>
+
+	<languages folder="languages">
+		<language tag="en-GB">en-GB.plg_tienda_shipping_usps.ini</language>
+	</languages>
+
+	<params addpath="/administrator/components/com_tienda/elements">
+		<param name="username" type="text" size="50" default="" label="Web Tools Username" description="Web Tools Username Desc"/>
+		<param name="password" type="text" size="50" default="" label="Web Tools Password" description="Web Tools Password Desc"/>
+        <param name="services" type="textarea" default="PARCEL, PRIORITY" label="Services List" description="Services List Desc" rows="5" cols="30" />
+		<param name="packaging" type="list" default="FLAT RATE BOX" label="Packaging Type" description="Packaging Type Desc">
+			<option value="FLAT RATE BOX">FLAT RATE BOX</option>
+			<option value="FLAT RATE ENVELOPE">FLAT RATE ENVELOPE</option>
+			<option value="SM FLAT RATE BOX">SM FLAT RATE BOX</option>
+			<option value="MD FLAT RATE BOX">MD FLAT RATE BOX</option>
+			<option value="LG FLAT RATE BOX">LG FLAT RATE BOX</option>
+			<option value="VARIABLE">Standard Box</option>
+		</param>
+		<param name="weight_unit" type="list" default="LB" label="Weight Unit" description="Weight Unit Desc">
+			<option value="LB">LB</option>
+		</param>
+		<param name="dimension_unit" type="list" default="IN" label="Dimension Unit" description="Dimension Unit Desc">
+			<option value="IN">IN</option>
+		</param>
+		<param name="charge_tax" type="list" default="0" label="Charge Tax" description="Enable to charge shipping tax.">
+			<option value="0">No</option>
+            <option value="1">Yes</option>
+		</param>
+		<param name="taxclass" type="tiendataxclass" size="50" default="" label="Tax Class" description="Specify the tax class to charge tax on shipping."/>
+		<param name="show_debug" type="list" default="0" label="Show Debug Messages" description="Show Debug Messages For USPS">
+			<option value="0">No</option>
+            <option value="1">Yes</option>
+		</param>
+	</params>
+			
+</install>

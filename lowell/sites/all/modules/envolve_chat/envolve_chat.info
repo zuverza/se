@@ -1,0 +1,10 @@
+name = Envolve Chat
+description = This module adds Envolve's chat toolbar to your website.
+core = 7.x
+configure = admin/config/services/envolve_chat
+; Information added by drupal.org packaging script on 2011-05-07
+version = "7.x-1.0"
+core = "7.x"
+project = "envolve_chat"
+datestamp = "1304774815"
+

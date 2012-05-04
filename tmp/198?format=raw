@@ -1,0 +1,237 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb">
+<head>
+      <base href="http://dioscouri.com/index.php" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="index, follow" />
+  <meta name="keywords" content="Dioscouri, Joomla, joomla, juga, tienda, ecommerce, technology, drupal, e-commerce, joomla ecommerce" />
+  <meta name="description" content="We are a boutique, Manhattan-based design firm specializing in PHP and MySQL, with a particular emphasis on the open source PHP package, Joomla!
+
+We aim to create useful, intuitive software for our community of users, as well as productive websites for our clients, while providing a high level of personalized attention and customer support." />
+  <meta name="generator" content="Dioscouri Design" />
+  <title>Dioscouri Design Downloads | Dioscouri Design</title>
+  <link rel="stylesheet" href="http://dioscouri.com/plugins/system/yvbbcode/default.css" type="text/css" />
+  <link rel="stylesheet" href="/components/com_ambrasubs/assets/css/ambrasubs.css" type="text/css" />
+  <script type="text/javascript" src="http://dioscouri.com/plugins/system/yvbbcode/default.js"></script>
+  <script type="text/javascript" src="/plugins/system/mtupgrade/mootools.js"></script>
+  <script type="text/javascript" src="/components/com_ambrasubs/assets/js/ambrasubs.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script type="text/javascript" src="/templates/default/js/dump.js"></script>
+  <script type="text/javascript">
+jQuery.noConflict();
+  </script>
+
+    <link rel="stylesheet" href="/templates/default/css/default.css" type="text/css" />
+</head>
+
+<body class="default">
+    <div id="top-wrap" class="page wrap">
+        <div id="top-wrap-inner" class="wrap right">
+            <div id="search" class="right wrap">
+                
+<form action="index.php"  method="post" class="search">
+    
+    <input name="searchword" maxlength="20" class="searchword input " type="text" size="20" value="search..." onblur="if(this.value=='search...') this.value='';" onfocus="if(this.value=='search...') this.value='';" onclick="if(this.value=='search...') this.value='';" />
+    <input name="submit" class="submit" type="submit" value="" />
+        
+    <input type="hidden" name="option" value="com_search" />
+    <input type="hidden" name="task" value="search" />
+    <input type="hidden" name="Itemid" value="563" />
+</form>
+
+            </div>
+            
+            <div id="top" class="wrap left">
+                    <ul class="flat">
+            <li class="first-child">
+            <a href="/shopping-cart">Shopping Cart</a>
+        </li>
+                <li class="middle-child">
+            <a href="/login">Login</a>
+        </li>
+                <li class="last-child">
+            <a href="/register">Register</a>
+        </li>
+            </ul>
+    
+            </div>
+        </div>
+    </div>
+    
+    <div id="header" class="page clear wrap">
+		<a title="Dioscouri Design" id="logo" href="/">
+			<img src="/templates/default/images/logo.png" alt="Dioscouri Design logo">
+		</a>
+        
+        <div id="top-navigation" class="right flat wrap">
+                <ul class="flat">
+            <li >
+    		<h3>
+                <a href="/clients">Clients</a>
+            </h3>
+                    </li>
+                <li >
+    		<h3>
+                <a href="/joomla-extensions">Joomla Extensions</a>
+            </h3>
+                    </li>
+                <li >
+    		<h3>
+                <a href="/blog">Blog</a>
+            </h3>
+                    </li>
+                <li class='active'>
+    		<h3>
+                <a href="/support">Support</a>
+            </h3>
+                    </li>
+            </ul>
+    
+        </div>
+        
+        
+    </div>
+    
+    <div id="inner-pagetitle">
+        <div class="page wrap">
+            <h1>Downloads</h1>
+            <div id="inner-featured" class="wrap">
+                <h2><a href="/joomla-extensions/subscription-plans">Buy a subscription plan</a></h2>
+            </div>
+        </div>
+    </div>
+    
+        <div id="breadcrumb" class="clear wrap">
+        <div class="page">
+            
+<ul class="flat">
+        <li>
+            <a href="http://dioscouri.com/" class="pathway">Home</a>            <img src="/templates/default/images/next.gif" />
+        </li>
+                <li>
+            <a href="/joomla-extensions" class="pathway">Joomla Extensions</a>            <img src="/templates/default/images/next.gif" />
+        </li>
+                <li>
+            Downloads        </li>
+        </ul>
+        </div>
+    </div>
+        
+            <div id="system-messages" class="clear wrap page">
+            
+        </div>
+            
+    <div id="main-body">
+        <div id="main-content" class="page wrap">
+            <div id="main-column" class="thin  left">
+                
+                <p><center>Powered by <a href='http://www.dioscouri.com' target='_blank'>Ambra Subscriptions</a></center></p>
+                
+                <div class="clear"></div>
+            </div>
+            
+                        <div id="left-column" class="left">
+                		<div class="wrap module-wrap " id="module_226">
+		            <div class="module-content wrap">
+    			<div class="bubble1">
+<div>
+<div>
+<div>
+<div>
+<div style="text-align: center;">
+Purchase a support subscription to download our commercial extensions.
+<a href="/joomla-extensions/charter-membership">How does that work?</a></div>
+</div>
+</div>
+</div>
+</div>
+<span class="author"> <a href="/component/ambrasubs/subscriptions"> <img src="/images/icons/clickbuy.gif" /> </a> </span></div>            </div>
+		</div>
+			<div class="wrap module-wrap " id="module_224">
+					<h4 class="label">Downloads</h4>
+		            <div class="module-content wrap">
+    			
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr ><td><a href="/joomla-extensions/downloads/ambra-um-user-manager" class="mainlevel" >AMBRA (User Manager + ACL)</a></td></tr>
+<tr ><td><a href="/joomla-extensions/downloads/ambra-subscriptions" class="mainlevel" >AMBRA Subscriptions</a></td></tr>
+<tr ><td><a href="/joomla-extensions/downloads/amigos-affiliate-tracking" class="mainlevel" >AMIGOS: Affiliate Tracking</a></td></tr>
+<tr ><td><a href="/joomla-extensions/downloads/billets" class="mainlevel" >BILLETS</a></td></tr>
+<tr ><td><a href="/joomla-extensions/downloads/fingertips" class="mainlevel" >Fingertips</a></td></tr>
+<tr ><td><a href="/joomla-extensions/downloads/juga" class="mainlevel" >JUGA</a></td></tr>
+<tr ><td><a href="/joomla-extensions/downloads/manga" class="mainlevel" >MANGA</a></td></tr>
+<tr ><td><a href="/joomla-extensions/downloads/phplist-integration" class="mainlevel" >PhpList Integration</a></td></tr>
+<tr ><td><a href="/joomla-extensions/downloads/scriba" class="mainlevel" >SCRIBA</a></td></tr>
+<tr ><td><a href="/joomla-extensions/downloads/synk" class="mainlevel" >SYNK</a></td></tr>
+<tr ><td><a href="/joomla-extensions/downloads/tienda-e-commerce" class="mainlevel" >TIENDA - e-commerce</a></td></tr>
+<tr ><td><a href="/joomla-extensions/downloads/scout-activity-log" class="mainlevel" >SCOUT - Activity Log</a></td></tr>
+<tr ><td><a href="/joomla-extensions/downloads/content-submit" class="mainlevel" >CONTENT SUBMIT</a></td></tr>
+<tr ><td><a href="/joomla-extensions/downloads/embed" class="mainlevel" >EMBED</a></td></tr>
+<tr ><td><a href="/joomla-extensions/downloads/hider" class="mainlevel" >HIDER</a></td></tr>
+<tr ><td><a href="/joomla-extensions/downloads/module-content-with-plugins" class="mainlevel" >Module: Content with Plugins</a></td></tr>
+</table>            </div>
+		</div>
+			<div class="wrap module-wrap _hilite" id="module_108">
+					<h4 class="label">Buy Us Lunch!</h4>
+		            <div class="module-content wrap">
+    			<!-- Paypal Donate Module from Joomlaspan.com -->
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_donations">
+<input type="hidden" name="business" value="info@dioscouri.com">
+<input type="hidden" name="item_name" value="Donation to Dioscouri Design">
+<input type="hidden" name="no_shipping" value="0">
+<input type="hidden" name="no_note" value="1">
+<input type="hidden" name="currency_code" value="USD">
+<input type="hidden" name="tax" value="0">
+<input type="hidden" name="bn" value="PP-DonationsBF">
+<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+            </div>
+		</div>
+	
+            </div>
+                        
+                    </div>
+        <div class="clear"></div>
+    </div>
+    
+    <div id="stay-connected">
+        <div class="page">
+            <div id="newsletter-signup" class="left">
+                
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    
+    <div id="footer-wrap" class="full">
+        <div id="footer" class="page">
+            
+                        
+            <div class="clear wrap">
+                                
+                <div class="left">
+                    <ul class="menu"><li class="first-child item21"><a href="http://dioscouri.com/"><span>Home</span></a></li><li class="middle-child item574"><a href="/clients"><span>Clients</span></a></li><li class="middle-child item575"><a href="/joomla-extensions"><span>Joomla Extensions</span></a></li><li class="middle-child item576"><a href="/blog"><span>Blog</span></a></li><li class="middle-child item577"><a href="http://projects.dioscouri.com"><span>Projects</span></a></li><li class="middle-child item565"><a href="/marketplace"><span>Marketplace</span></a></li><li class="parent item7"><a href="/contact"><span>Contact</span></a></li><li class="last-child item582"><a href="/partners"><span>Partners</span></a></li></ul>
+                    <p><span style="color: #ffffff;">Copyright © 2010 Dioscouri Design.  All Rights Reserved.</span>_</p>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    
+    <div class="clear"></div>
+
+			<script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+			</script>
+			<script type="text/javascript">
+			try {
+			var pageTracker = _gat._getTracker("UA-7067535-1");
+			pageTracker._trackPageview();
+			} catch(err) {}</script>
+			</body>
+</html>
+
